@@ -15,7 +15,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_libdir		/%{_lib}
 
 %description
-nss-mdns is a plugin for the GNU Name Service Switch (NSS) functionality of the GNU C Library (glibc) providing host name resolution via Multicast DNS (aka Zeroconf, aka Apple Rendezvous), effectively allowing name resolution by common Unix/Linux programs in the ad-hoc mDNS domain .local.
+nss-mdns is a plugin for the GNU Name Service Switch (NSS)
+functionality of the GNU C Library (glibc) providing host name
+resolution via Multicast DNS (aka Zeroconf, aka Apple Rendezvous),
+effectively allowing name resolution by common Unix/Linux programs in
+the ad-hoc mDNS domain .local.
 
 %prep
 %setup -q -n nss-mdns-%{version}
