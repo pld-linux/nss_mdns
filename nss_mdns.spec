@@ -1,0 +1,44 @@
+Summary:	mDNS Service Switch Module
+Summary(pl):	Modu³ NSS mDNS
+Name:		nss_mdns
+Version:	0.2
+Release:	1
+License:	LGPL
+Group:		Base
+Source0:	http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-%{version}.tar.gz
+# Source0-md5:	94d2ec9a70f4ea61210d58822feaf675
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_libdir		/%{_lib}
+
+%description
+nss-mdns is a plugin for the GNU Name Service Switch (NSS) functionality of the GNU C Library (glibc) providing host name resolution via Multicast DNS (aka Zeroconf, aka Apple Rendezvous), effectively allowing name resolution by common Unix/Linux programs in the ad-hoc mDNS domain .local.
+
+%prep
+%setup -q -n nss-mdns-%{version}
+
+%build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+%configure
+%{__make}
+
+%install
+rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_libdir}
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(644,root,root,755)
+%doc doc/*
+%attr(755,root,root) %{_libdir}/*.so*
