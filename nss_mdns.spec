@@ -21,6 +21,13 @@ resolution via Multicast DNS (aka Zeroconf, aka Apple Rendezvous),
 effectively allowing name resolution by common Unix/Linux programs in
 the ad-hoc mDNS domain .local.
 
+%description -l pl
+nss-mdns to wtyczka dla funkcjonalno¶ci NSS (Name Service Switch) w
+glibc daj±ca mo¿liwo¶æ rozwi±zywania nazw poprzez Multicast DNS (znany
+tak¿e jako Zeroconf lub Apple Rendezvous), efektywnie umo¿liwiaj±ca
+rozwi±zywanie nazw przez popularne programy uniksowe/linuksowe w
+dora¼nej domenie mDNS .local.
+
 %prep
 %setup -q -n nss-mdns-%{version}
 
