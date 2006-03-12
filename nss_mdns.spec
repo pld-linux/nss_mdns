@@ -1,12 +1,12 @@
 Summary:	mDNS Service Switch Module
 Summary(pl):	Modu³ NSS mDNS
 Name:		nss_mdns
-Version:	0.6
+Version:	0.7
 Release:	1
 License:	LGPL v2.1
 Group:		Base
 Source0:	http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-%{version}.tar.gz
-# Source0-md5:	46e4e6c200ee9dc4a466be5ff9247fbd
+# Source0-md5:	f384fb230145f90fb75df1e33062583f
 URL:		http://0pointer.de/lennart/projects/nss-mdns/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -36,13 +36,13 @@ dora¼nej domenie mDNS .local.
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_libdir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -52,5 +52,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc doc/*
-%attr(755,root,root) %{_libdir}/*.so*
+%doc README doc/{README.html,style.css}
+%attr(755,root,root) %{_libdir}/libnss_mdns*.so.*
