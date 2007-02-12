@@ -1,5 +1,5 @@
 Summary:	mDNS Service Switch Module
-Summary(pl):	Modu≥ NSS mDNS
+Summary(pl.UTF-8):   Modu≈Ç NSS mDNS
 Name:		nss_mdns
 Version:	0.9
 Release:	1
@@ -22,12 +22,12 @@ resolution via Multicast DNS (aka Zeroconf, aka Apple Rendezvous),
 effectively allowing name resolution by common Unix/Linux programs in
 the ad-hoc mDNS domain .local.
 
-%description -l pl
-nss-mdns to wtyczka dla funkcjonalno∂ci NSS (Name Service Switch) w
-glibc daj±ca moøliwo∂Ê rozwi±zywania nazw poprzez Multicast DNS (znany
-takøe jako Zeroconf lub Apple Rendezvous), efektywnie umoøliwiaj±ca
-rozwi±zywanie nazw przez popularne programy uniksowe/linuksowe w
-doraºnej domenie mDNS .local.
+%description -l pl.UTF-8
+nss-mdns to wtyczka dla funkcjonalno≈õci NSS (Name Service Switch) w
+glibc dajƒÖca mo≈ºliwo≈õƒá rozwiƒÖzywania nazw poprzez Multicast DNS (znany
+tak≈ºe jako Zeroconf lub Apple Rendezvous), efektywnie umo≈ºliwiajƒÖca
+rozwiƒÖzywanie nazw przez popularne programy uniksowe/linuksowe w
+dora≈∫nej domenie mDNS .local.
 
 %prep
 %setup -q -n nss-mdns-%{version}
