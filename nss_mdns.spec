@@ -1,5 +1,5 @@
 Summary:	mDNS Service Switch Module
-Summary(pl.UTF-8):   Moduł NSS mDNS
+Summary(pl.UTF-8):	Moduł NSS mDNS
 Name:		nss_mdns
 Version:	0.9
 Release:	1
