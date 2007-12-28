@@ -1,12 +1,12 @@
 Summary:	mDNS Service Switch Module
 Summary(pl.UTF-8):	Moduł NSS mDNS
 Name:		nss_mdns
-Version:	0.9
+Version:	0.10
 Release:	1
 License:	LGPL v2.1
 Group:		Base
 Source0:	http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-%{version}.tar.gz
-# Source0-md5:	bc72f5b19cc6ce8cacde448236b30868
+# Source0-md5:	03938f17646efbb50aa70ba5f99f51d7
 URL:		http://0pointer.de/lennart/projects/nss-mdns/
 BuildRequires:	autoconf
 BuildRequires:	automake
