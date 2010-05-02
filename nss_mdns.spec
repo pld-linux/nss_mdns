@@ -1,8 +1,14 @@
+#
+# Conditional build:
+%bcond_with	legacy	# enable the insecure legacy code (no avahi
+			# dependency then)
+%bcond_without	avahi	# disable avahi support
+#
 Summary:	mDNS Service Switch Module
 Summary(pl.UTF-8):	Moduł NSS mDNS
 Name:		nss_mdns
 Version:	0.10
-Release:	1
+Release:	2
 License:	LGPL v2.1
 Group:		Base
 Source0:	http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-%{version}.tar.gz
@@ -11,6 +17,10 @@ URL:		http://0pointer.de/lennart/projects/nss-mdns/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+Requires(post):	/etc/nsswitch.conf
+Requires(post): grep
+Requires(post): sed
+%{!?with_legacy:Requires:	avahi}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libdir		/%{_lib}
@@ -39,7 +49,8 @@ doraźnej domenie mDNS .local.
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-legacy
+	--%{?with_legacy:en}%{!?with_legacy:dis}able-legacy \
+	--%{?with_avahi:en}%{!?with_avahi:dis}able-avahi
 %{__make}
 
 %install
@@ -47,6 +58,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%post
+if ! grep -q '^hosts:.*mdns' /etc/nsswitch.conf ; then
+	%banner %{name} <<-EOF
+	Adding Multicast-DNS resolver to /etc/nsswitch.conf
+EOF
+	sed -i -e's/^\(hosts:.*\)dns\(.*\)/\1mdns4_minimal [NOTFOUND=return] dns mdns4\2/' /etc/nsswitch.conf
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
