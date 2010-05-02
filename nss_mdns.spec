@@ -20,6 +20,7 @@ BuildRequires:	libtool
 Requires(post):	/etc/nsswitch.conf
 Requires(post): grep
 Requires(post): sed
+Requires(postun): sed
 %{!?with_legacy:Requires:	avahi}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,6 +66,11 @@ if ! grep -q '^hosts:.*mdns' /etc/nsswitch.conf ; then
 	Adding Multicast-DNS resolver to /etc/nsswitch.conf
 EOF
 	sed -i -e's/^\(hosts:.*\)dns\(.*\)/\1mdns4_minimal [NOTFOUND=return] dns mdns4\2/' /etc/nsswitch.conf
+fi
+
+%postun
+if [ "$1" = "0" ]; then
+	sed -i -r -e's/mdns4(_minimal)?( \[NOTFOUND=return\])?( |$)//g' /etc/nsswitch.conf || :
 fi
 
 %clean
