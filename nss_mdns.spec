@@ -1,27 +1,26 @@
 #
 # Conditional build:
-%bcond_with	legacy	# enable the insecure legacy code (no avahi
-			# dependency then)
-%bcond_without	avahi	# disable avahi support
+%bcond_without	tests	# disable tests
 #
 Summary:	mDNS Service Switch Module
 Summary(pl.UTF-8):	Moduł NSS mDNS
 Name:		nss_mdns
-Version:	0.10
-Release:	2
+Version:	0.14.1
+Release:	1
 License:	LGPL v2.1
 Group:		Base
-Source0:	http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-%{version}.tar.gz
-# Source0-md5:	03938f17646efbb50aa70ba5f99f51d7
+Source0:	https://github.com/lathiat/nss-mdns/releases/download/v%{version}/nss-mdns-%{version}.tar.gz
+# Source0-md5:	39b7f6ccfa0605321c7ee6e78478b83b
 URL:		http://0pointer.de/lennart/projects/nss-mdns/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%{?with_tests:BuildRequires:	check-devel >= 0.11}
 BuildRequires:	libtool
 Requires(post):	/etc/nsswitch.conf
 Requires(post): grep
 Requires(post): sed
 Requires(postun): sed
-%{!?with_legacy:Requires:	avahi}
+Requires:	avahi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libdir		/%{_lib}
@@ -50,9 +49,9 @@ doraźnej domenie mDNS .local.
 %{__autoheader}
 %{__automake}
 %configure \
-	--%{?with_legacy:en}%{!?with_legacy:dis}able-legacy \
-	--%{?with_avahi:en}%{!?with_avahi:dis}able-avahi
+	--%{?with_tests:en}%{!?with_tests:dis}able-tests
 %{__make}
+%{__make} check
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -78,5 +77,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README doc/{README.html,style.css}
+%doc ACKNOWLEDGEMENTS.md README.md NEWS.md
 %attr(755,root,root) %{_libdir}/libnss_mdns*.so.*
