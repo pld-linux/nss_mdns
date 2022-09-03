@@ -53,7 +53,7 @@ doraźnej domenie mDNS .local.
 	--disable-silent-rules \
 	--%{?with_tests:en}%{!?with_tests:dis}able-tests
 %{__make}
-%{__make} check
+%{?with_tests:%{__make} check}
 
 %install
 rm -rf $RPM_BUILD_ROOT
