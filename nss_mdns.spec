@@ -49,6 +49,7 @@ doraźnej domenie mDNS .local.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-silent-rules \
 	--%{?with_tests:en}%{!?with_tests:dis}able-tests
 %{__make}
 %{__make} check
