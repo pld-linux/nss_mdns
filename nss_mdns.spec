@@ -12,9 +12,10 @@ Group:		Base
 Source0:	https://github.com/lathiat/nss-mdns/releases/download/v%{version}/nss-mdns-%{version}.tar.gz
 # Source0-md5:	39b7f6ccfa0605321c7ee6e78478b83b
 URL:		http://0pointer.de/lennart/projects/nss-mdns/
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.69
+BuildRequires:	automake >= 1:1.9
 %{?with_tests:BuildRequires:	check-devel >= 0.11}
+BuildRequires:	gcc >= 6:4.5
 BuildRequires:	libtool
 Requires(post):	/etc/nsswitch.conf
 Requires(post): grep
