@@ -13,14 +13,14 @@ Source0:	https://github.com/lathiat/nss-mdns/releases/download/v%{version}/nss-m
 # Source0-md5:	78b96e7360a8af106c609c9c5fc17274
 URL:		http://0pointer.de/lennart/projects/nss-mdns/
 BuildRequires:	autoconf >= 2.69
-BuildRequires:	automake >= 1:1.9
+BuildRequires:	automake >= 1:1.11
 %{?with_tests:BuildRequires:	check-devel >= 0.11}
 BuildRequires:	gcc >= 6:4.5
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
+BuildRequires:	pkgconfig
 Requires(post):	/etc/nsswitch.conf
 Requires(post): grep
-Requires(post): sed
-Requires(postun): sed
+Requires(post,postun):	sed >= 4.0
 Requires:	avahi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,14 +45,15 @@ doraźnej domenie mDNS .local.
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
 %configure \
 	--disable-silent-rules \
-	--%{?with_tests:en}%{!?with_tests:dis}able-tests
+	--enable-tests%{!?with_tests:=no}
 %{__make}
+
 %{?with_tests:%{__make} check}
 
 %install
@@ -60,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
 if ! grep -q '^hosts:.*mdns' /etc/nsswitch.conf ; then
@@ -73,9 +77,6 @@ fi
 if [ "$1" = "0" ]; then
 	sed -i -r -e's/mdns4(_minimal)?( \[NOTFOUND=return\])?( |$)//g' /etc/nsswitch.conf || :
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
